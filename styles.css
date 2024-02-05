@@ -1,3 +1,4 @@
+/* General styles */
 body {
   background-color: #f2f2f2;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,4 +37,11 @@ body {
   font-size: 24px;
   color: #555;
   margin-top: 50px;
+}
+
+/* Media query for smaller font size on mobile */
+@media only screen and (max-width: 768px) {
+  .info {
+    font-size: 18px;
+  }
 }
