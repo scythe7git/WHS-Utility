@@ -1,27 +1,20 @@
 function updateCountdown() {
+  // variables
   var now = new Date();
-  
-  // Get the day of the week
-  var dayOfWeek = now.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
-  
-  // Get the timezone offset
+  var dayOfWeek = now.getDay();
   var timezoneOffset = now.getTimezoneOffset();
-  
-  // Convert the offset to hours and minutes
   var hours = Math.abs(Math.floor(timezoneOffset / 60));
   var minutes = Math.abs(timezoneOffset % 60);
-  
-  // Determine the sign of the offset
   var sign = timezoneOffset > 0 ? "-" : "+";
-
-  // Construct the timezone name
   var timezoneName = "GMT" + sign + pad(hours) + ":" + pad(minutes);
   
+// tried implementing a system to set a custom time but it broke everything
+
   console.log("Timezone:", timezoneName);
 
   var periods = [];
   
-  if (dayOfWeek === 3) { // Wednesday
+  if (dayOfWeek === 3) { // checking if wednesday
     periods = [
       { name: "Period 1", time: "09:30" },
       { name: "Period 2", time: "10:20" },
@@ -32,15 +25,13 @@ function updateCountdown() {
       { name: "Period 5", time: "14:20" },
       { name: "School ends", time: "15:20" }
     ];
-  } else if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-    // Countdown to Monday's Period 1
-    var daysUntilMonday = 1 + (dayOfWeek === 6 ? 1 : 0); // Calculate days until Monday
-    var startOfNextWeek = new Date(now.getTime() + daysUntilMonday * 24 * 60 * 60 * 1000); // Add days to current date
-    startOfNextWeek.setHours(8, 45, 0, 0); // Set to start of Monday's Period 1
+  } else if (dayOfWeek === 0 || dayOfWeek === 6) { // checking if weekend, if it is will display the next period 1 on monday
+    var daysUntilMonday = 1 + (dayOfWeek === 6 ? 1 : 0);
+    var startOfNextWeek = new Date(now.getTime() + daysUntilMonday * 24 * 60 * 60 * 1000);
+    startOfNextWeek.setHours(8, 45, 0, 0);
     
     var timeUntilNextPeriod1 = startOfNextWeek.getTime() - now.getTime();
     
-    // If it's already Monday, move to next Monday
     if (timeUntilNextPeriod1 <= 0) {
       startOfNextWeek.setDate(startOfNextWeek.getDate() + 7);
       timeUntilNextPeriod1 = startOfNextWeek.getTime() - now.getTime();
@@ -58,9 +49,9 @@ function updateCountdown() {
     document.getElementById("currentPeriod").innerText = "Weekend";
     document.getElementById("deviceTimezone").innerText = "Your Timezone: " + timezoneName;
     
-    return; // Exit the function early for weekends
-  } else { // Monday, Tuesday, Thursday, or Friday
-    periods = [
+    return;
+  } else {
+    periods = [ // probs could have put both of the arrays together but idk how alex help
       { name: "Period 1", time: "08:45" },
       { name: "Period 2", time: "09:40" },
       { name: "Break", time: "10:40" },
@@ -75,7 +66,6 @@ function updateCountdown() {
 
   var nextPeriod = null;
   
-  // Find the next period
   for (var i = 0; i < periods.length; i++) {
     var periodTime = new Date(now.toDateString() + " " + periods[i].time);
     if (periodTime.getTime() > now.getTime()) {
@@ -83,7 +73,7 @@ function updateCountdown() {
       break;
     }
   }
-
+// stupid logic (chatgpt did this from ealier)
   if (nextPeriod) {
     var timeDiff = new Date(now.toDateString() + " " + nextPeriod.time).getTime() - now.getTime();
     var hours = Math.floor(timeDiff / (1000 * 60 * 60));
@@ -100,10 +90,9 @@ function updateCountdown() {
 
     document.getElementById("countdown").innerText = countdownStr;
   } else {
-    // If no next period is found, reset the countdown to the start of Period 1 for the next school day
     var startOfNextDay = new Date(now);
-    startOfNextDay.setDate(startOfNextDay.getDate() + 1); // Set to next day
-    startOfNextDay.setHours(8, 45, 0, 0); // Set to start of Period 1
+    startOfNextDay.setDate(startOfNextDay.getDate() + 1);
+    startOfNextDay.setHours(8, 45, 0, 0);
     var timeUntilNextPeriod1 = startOfNextDay.getTime() - now.getTime();
 
     var hours = Math.floor(timeUntilNextPeriod1 / (1000 * 60 * 60));
@@ -116,7 +105,6 @@ function updateCountdown() {
     document.getElementById("countdown").innerText = countdownStr;
   }
 
-  // Display the current period
   var currentPeriodStr = "";
   if (nextPeriod) {
     if (nextPeriod.name === "School ends") {
@@ -127,23 +115,18 @@ function updateCountdown() {
       currentPeriodStr = periods[currentPeriodIndex].name;
     }
   } else {
-    // If no next period is found, set the current period to "School has finished"
     currentPeriodStr = "School has finished";
   }
 
   document.getElementById("currentPeriod").innerText = currentPeriodStr;
 
-  // Display device's timezone
   document.getElementById("deviceTimezone").innerText = "Your Timezone: " + timezoneName;
 }
 
-// Update countdown every second
 setInterval(updateCountdown, 1000);
 
-// Initial update
 updateCountdown();
 
-// Helper function to pad single-digit numbers with leading zeros
 function pad(number) {
   if (number < 10) {
     return "0" + number;

@@ -1,4 +1,3 @@
-/* General styles */
 body {
   background-color: #f2f2f2;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -39,18 +38,16 @@ body {
   margin-top: 50px;
 }
 
-/* Media query for smaller font size on mobile */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) { /*got chat gpt to make it smaller on mobile*/
   .info {
     font-size: 18px;
   }
 }
 
-/* Button styles */
 .add-extension-button {
   font-size: 16px;
   color: #fff;
-  background-color: #b3b3b3; /* Gray color */
+  background-color: #b3b3b3;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -61,7 +58,7 @@ body {
 }
 
 .add-extension-button:hover {
-  background-color: #999999; /* Darker gray on hover */
+  background-color: #999999;
 }
 
 .download-button {
