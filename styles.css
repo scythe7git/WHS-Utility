@@ -45,3 +45,56 @@ body {
     font-size: 18px;
   }
 }
+
+/* Button styles */
+.add-extension-button {
+  font-size: 16px;
+  color: #fff;
+  background-color: #b3b3b3; /* Gray color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.add-extension-button:hover {
+  background-color: #999999; /* Darker gray on hover */
+}
+
+.download-button {
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  margin-bottom: 20px; /* Added more space */
+  text-decoration: none;
+}
+
+.download-button:hover {
+  background-color: #0056b3;
+}
+
+.site-button {
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.site-button:hover {
+  background-color: #0056b3;
+}
