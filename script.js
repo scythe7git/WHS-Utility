@@ -1,6 +1,9 @@
 function updateCountdown() {
   var now = new Date();
   
+  // Get the day of the week
+  var dayOfWeek = now.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+  
   // Get the timezone offset
   var timezoneOffset = now.getTimezoneOffset();
   
@@ -16,17 +19,59 @@ function updateCountdown() {
   
   console.log("Timezone:", timezoneName);
 
-  var periods = [
-    { name: "Period 1", time: "08:45" },
-    { name: "Period 2", time: "09:40" },
-    { name: "Break", time: "10:40" },
-    { name: "Period 3", time: "11:00" },
-    { name: "Homeroom", time: "12:00" },
-    { name: "Period 4", time: "12:20" },
-    { name: "Lunch", time: "13:20" },
-    { name: "Period 5", time: "14:20" },
-    { name: "School ends", time: "15:20" }
-  ];
+  var periods = [];
+  
+  if (dayOfWeek === 3) { // Wednesday
+    periods = [
+      { name: "Period 1", time: "09:30" },
+      { name: "Period 2", time: "10:20" },
+      { name: "Break", time: "11:10" },
+      { name: "Period 3", time: "11:30" },
+      { name: "Period 4", time: "12:20" },
+      { name: "Lunch", time: "13:20" },
+      { name: "Period 5", time: "14:20" },
+      { name: "School ends", time: "15:20" }
+    ];
+  } else if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
+    // Countdown to Monday's Period 1
+    var daysUntilMonday = 1 + (dayOfWeek === 6 ? 1 : 0); // Calculate days until Monday
+    var startOfNextWeek = new Date(now.getTime() + daysUntilMonday * 24 * 60 * 60 * 1000); // Add days to current date
+    startOfNextWeek.setHours(8, 45, 0, 0); // Set to start of Monday's Period 1
+    
+    var timeUntilNextPeriod1 = startOfNextWeek.getTime() - now.getTime();
+    
+    // If it's already Monday, move to next Monday
+    if (timeUntilNextPeriod1 <= 0) {
+      startOfNextWeek.setDate(startOfNextWeek.getDate() + 7);
+      timeUntilNextPeriod1 = startOfNextWeek.getTime() - now.getTime();
+    }
+    
+    var hours = Math.floor(timeUntilNextPeriod1 / (1000 * 60 * 60));
+    var minutes = Math.floor((timeUntilNextPeriod1 % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeUntilNextPeriod1 % (1000 * 60)) / 1000);
+
+    var countdownStr = "Period 1 starts in ";
+    countdownStr += hours + "h " + minutes + "m " + seconds + "s";
+
+    document.getElementById("countdown").innerText = countdownStr;
+    
+    document.getElementById("currentPeriod").innerText = "Weekend";
+    document.getElementById("deviceTimezone").innerText = "Your Timezone: " + timezoneName;
+    
+    return; // Exit the function early for weekends
+  } else { // Monday, Tuesday, Thursday, or Friday
+    periods = [
+      { name: "Period 1", time: "08:45" },
+      { name: "Period 2", time: "09:40" },
+      { name: "Break", time: "10:40" },
+      { name: "Period 3", time: "11:00" },
+      { name: "Homeroom", time: "12:00" },
+      { name: "Period 4", time: "12:20" },
+      { name: "Lunch", time: "13:20" },
+      { name: "Period 5", time: "14:20" },
+      { name: "School ends", time: "15:20" }
+    ];
+  }
 
   var nextPeriod = null;
   
