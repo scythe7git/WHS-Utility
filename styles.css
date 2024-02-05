@@ -20,24 +20,20 @@ body {
 }
 
 .current-period {
+  font-size: 18px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.device-timezone {
   font-size: 16px;
   color: #555;
-  margin-top: 20px;
+  margin-top: 30px;
+  font-weight: bold;
 }
 
 .info {
-  font-size: 18px;
+  font-size: 24px;
   color: #555;
   margin-top: 50px;
-}
-
-.confetti {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #f00; /* Initial color, will be overridden */
-  border-radius: 50%;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
 }

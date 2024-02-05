@@ -28,15 +28,12 @@ function updateCountdown() {
     { name: "School ends", time: "15:20" }
   ];
 
-  var currentPeriod = null;
   var nextPeriod = null;
   
-  // Find the current and next periods
+  // Find the next period
   for (var i = 0; i < periods.length; i++) {
     var periodTime = new Date(now.toDateString() + " " + periods[i].time);
-    if (periodTime.getTime() <= now.getTime()) {
-      currentPeriod = periods[i];
-    } else {
+    if (periodTime.getTime() > now.getTime()) {
       nextPeriod = periods[i];
       break;
     }
@@ -48,28 +45,51 @@ function updateCountdown() {
     var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-    var countdownStr;
+    var countdownStr = "";
     if (nextPeriod.name === "School ends") {
       countdownStr = "School ending in ";
-      // Start the confetti animation
-      startConfetti();
     } else {
       countdownStr = nextPeriod.name + " starts in ";
     }
-
     countdownStr += hours + "h " + minutes + "m " + seconds + "s";
 
     document.getElementById("countdown").innerText = countdownStr;
+  } else {
+    // If no next period is found, reset the countdown to the start of Period 1 for the next school day
+    var startOfNextDay = new Date(now);
+    startOfNextDay.setDate(startOfNextDay.getDate() + 1); // Set to next day
+    startOfNextDay.setHours(8, 45, 0, 0); // Set to start of Period 1
+    var timeUntilNextPeriod1 = startOfNextDay.getTime() - now.getTime();
 
-    if (currentPeriod && currentPeriod.name !== "School ends") {
-      document.getElementById("currentPeriod").innerText = "Current Period: " + currentPeriod.name;
+    var hours = Math.floor(timeUntilNextPeriod1 / (1000 * 60 * 60));
+    var minutes = Math.floor((timeUntilNextPeriod1 % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeUntilNextPeriod1 % (1000 * 60)) / 1000);
+
+    var countdownStr = "Period 1 starts in ";
+    countdownStr += hours + "h " + minutes + "m " + seconds + "s";
+
+    document.getElementById("countdown").innerText = countdownStr;
+  }
+
+  // Display the current period
+  var currentPeriodStr = "";
+  if (nextPeriod) {
+    if (nextPeriod.name === "School ends") {
+      currentPeriodStr = "School has finished";
     } else {
-      document.getElementById("currentPeriod").innerText = "";
+      var currentIndex = periods.findIndex(period => period.name === nextPeriod.name);
+      var currentPeriodIndex = currentIndex > 0 ? currentIndex - 1 : periods.length - 1;
+      currentPeriodStr = periods[currentPeriodIndex].name;
     }
   } else {
-    document.getElementById("countdown").innerText = "School has finished for today.";
-    document.getElementById("currentPeriod").innerText = "";
+    // If no next period is found, set the current period to "School has finished"
+    currentPeriodStr = "School has finished";
   }
+
+  document.getElementById("currentPeriod").innerText = currentPeriodStr;
+
+  // Display device's timezone
+  document.getElementById("deviceTimezone").innerText = "Your Timezone: " + timezoneName;
 }
 
 // Update countdown every second
@@ -84,36 +104,4 @@ function pad(number) {
     return "0" + number;
   }
   return number;
-}
-
-// Function to start the confetti animation
-function startConfetti() {
-  var duration = 5000; // Duration of the confetti animation in milliseconds
-  var startTime = Date.now();
-
-  // Create confetti elements and animate them
-  var confettiContainer = document.createElement("div");
-  confettiContainer.classList.add("confetti-container");
-  document.body.appendChild(confettiContainer);
-
-  var intervalId = setInterval(function() {
-    var timePassed = Date.now() - startTime;
-    if (timePassed > duration) {
-      clearInterval(intervalId);
-      document.body.removeChild(confettiContainer); // Remove the confetti container after animation
-    } else {
-      createConfetti(confettiContainer);
-    }
-  }, 50);
-}
-
-// Function to create individual confetti elements
-function createConfetti(container) {
-  var colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"]; // List of possible confetti colors
-  var confetti = document.createElement("div");
-  confetti.classList.add("confetti");
-  confetti.style.left = Math.random() * window.innerWidth + "px";
-  confetti.style.animationDuration = Math.random() * 3 + 2 + "s"; // Randomize animation duration between 2 and 5 seconds
-  confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; // Randomly choose a color
-  container.appendChild(confetti);
 }
