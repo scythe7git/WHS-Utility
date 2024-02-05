@@ -1,5 +1,5 @@
 function updateCountdown() {
-    fetch('http://worldtimeapi.org/api/timezone/Pacific/Auckland')
+    fetch('https://worldtimeapi.org/api/timezone/Pacific/Auckland')
       .then(response => response.json())
       .then(data => {
         var now = new Date(data.datetime);
