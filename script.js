@@ -25,7 +25,7 @@ function updateCountdown() {
     { name: "Period 4", time: "12:20" },
     { name: "Lunch", time: "13:20" },
     { name: "Period 5", time: "14:20" },
-    { name: "School end", time: "15:20" }
+    { name: "School ends", time: "15:20" }
   ];
 
   var currentPeriod = null;
@@ -42,19 +42,33 @@ function updateCountdown() {
     }
   }
 
-  if (currentPeriod && nextPeriod) {
+  if (nextPeriod) {
     var timeDiff = new Date(now.toDateString() + " " + nextPeriod.time).getTime() - now.getTime();
     var hours = Math.floor(timeDiff / (1000 * 60 * 60));
     var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-    var countdownStr = nextPeriod.name + " starts in ";
+    var countdownStr;
+    if (nextPeriod.name === "School ends") {
+      countdownStr = "School ending in ";
+      // Start the confetti animation
+      startConfetti();
+    } else {
+      countdownStr = nextPeriod.name + " starts in ";
+    }
+
     countdownStr += hours + "h " + minutes + "m " + seconds + "s";
 
     document.getElementById("countdown").innerText = countdownStr;
-    document.getElementById("currentPeriod").innerText = currentPeriod.name;
+
+    if (currentPeriod && currentPeriod.name !== "School ends") {
+      document.getElementById("currentPeriod").innerText = "Current Period: " + currentPeriod.name;
+    } else {
+      document.getElementById("currentPeriod").innerText = "";
+    }
   } else {
     document.getElementById("countdown").innerText = "School has finished for today.";
+    document.getElementById("currentPeriod").innerText = "";
   }
 }
 
@@ -70,4 +84,36 @@ function pad(number) {
     return "0" + number;
   }
   return number;
+}
+
+// Function to start the confetti animation
+function startConfetti() {
+  var duration = 5000; // Duration of the confetti animation in milliseconds
+  var startTime = Date.now();
+
+  // Create confetti elements and animate them
+  var confettiContainer = document.createElement("div");
+  confettiContainer.classList.add("confetti-container");
+  document.body.appendChild(confettiContainer);
+
+  var intervalId = setInterval(function() {
+    var timePassed = Date.now() - startTime;
+    if (timePassed > duration) {
+      clearInterval(intervalId);
+      document.body.removeChild(confettiContainer); // Remove the confetti container after animation
+    } else {
+      createConfetti(confettiContainer);
+    }
+  }, 50);
+}
+
+// Function to create individual confetti elements
+function createConfetti(container) {
+  var colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"]; // List of possible confetti colors
+  var confetti = document.createElement("div");
+  confetti.classList.add("confetti");
+  confetti.style.left = Math.random() * window.innerWidth + "px";
+  confetti.style.animationDuration = Math.random() * 3 + 2 + "s"; // Randomize animation duration between 2 and 5 seconds
+  confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; // Randomly choose a color
+  container.appendChild(confetti);
 }

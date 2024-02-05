@@ -30,3 +30,14 @@ body {
   color: #555;
   margin-top: 50px;
 }
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f00; /* Initial color, will be overridden */
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
