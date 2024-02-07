@@ -108,7 +108,7 @@ function updateCountdown() {
   var currentPeriodStr = "";
   if (nextPeriod) {
     if (nextPeriod.name === "School ends") {
-      currentPeriodStr = "School has finished";
+      currentPeriodStr = "Period 5";
     } else {
       var currentIndex = periods.findIndex(period => period.name === nextPeriod.name);
       var currentPeriodIndex = currentIndex > 0 ? currentIndex - 1 : periods.length - 1;
