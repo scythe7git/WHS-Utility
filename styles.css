@@ -95,3 +95,17 @@ body {
 .site-button:hover {
   background-color: #0056b3;
 }
+
+.home-title {
+  font-size: 48px;
+  color: #333; /* Match this with the countdown title color */
+  margin-bottom: 20px; /* Adjust spacing as needed */
+  font-weight: normal; /* Ensure the text is not bold */
+}
+
+/* Adjust this if needed to match countdown styles */
+.info {
+  font-size: 24px;
+  color: #555; /* This should be consistent with the countdown page */
+  margin-top: 50px;
+}
