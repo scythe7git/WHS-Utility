@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .calculator-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .calculator-container h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .calculator-container label {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 5px;
+      font-size: 18px;
+    }
+    .calculator-container .section {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    .section-title {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .field-group {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .field-group div {
+      width: 30%;
+    }
+    .field-group label {
+      text-align: center;
+      margin: 0;
+    }
+    .field-group input {
+      width: 100%;
+      margin: 0;
+    }
+    .calculator-container input, .calculator-container select {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 5px;
+      max-width: 300px;
+    }
+    .calculator-container button {
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+    .calculator-container button:hover {
+      background-color: #0056b3;
+    }
+    .results {
+      font-size: 18px;
+      color: #555;
+      margin-top: 20px;
+      text-align: left;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="calculator-container">
+    <h1>Grade Calculator</h1>
+
+    <label for="level">Select NCEA Level:</label>
+    <select id="level">
+      <option value="1">Level 1</option>
+      <option value="2">Level 2</option>
+      <option value="3">Level 3</option>
+    </select>
+
+    <div id="credits-section"></div>
+
+    <button onclick="calculateGrades()">Calculate</button>
+
+    <div id="results" class="results"></div>
+  </div>
+
+  <a href="index.html" class="site-button">Back to Home</a>
+</div>
+
+<script>
+  document.getElementById('level').addEventListener('change', function() {
+    const level = this.value;
+    const section = document.getElementById('credits-section');
+
+    section.innerHTML = ''; // Clear previous content
+
+    const fields = ['Achieved', 'Merit', 'Excellence'];
+    const types = ['Normal', 'Literacy', 'Numeracy'];
+
+    fields.forEach(field => {
+      section.innerHTML += `
+        <div class="section">
+          <div class="section-title">${field} Credits:</div>
+          <div class="field-group">
+            ${types.map(type => `
+              <div>
+                <label for="${field.toLowerCase()}-${type.toLowerCase()}">${type} ${field}:</label>
+                <input type="number" id="${field.toLowerCase()}-${type.toLowerCase()}" placeholder="Number of ${type} ${field} credits">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    });
+  });
+
+  function calculateGrades() {
+    const level = document.getElementById('level').value;
+    let achievedCredits = 0, meritCredits = 0, excellenceCredits = 0;
+    let literacyAchieved = 0, literacyMerit = 0, literacyExcellence = 0;
+    let numeracyAchieved = 0, numeracyMerit = 0, numeracyExcellence = 0;
+
+    ['Achieved', 'Merit', 'Excellence'].forEach(field => {
+      ['Normal', 'Literacy', 'Numeracy'].forEach(type => {
+        const value = parseInt(document.getElementById(`${field.toLowerCase()}-${type.toLowerCase()}`).value, 10) || 0;
+        if (type === 'Normal') {
+          if (field === 'Achieved') achievedCredits += value;
+          else if (field === 'Merit') meritCredits += value;
+          else if (field === 'Excellence') excellenceCredits += value;
+        } else if (type === 'Literacy') {
+          if (field === 'Achieved') literacyAchieved += value;
+          else if (field === 'Merit') literacyMerit += value;
+          else if (field === 'Excellence') literacyExcellence += value;
+        } else if (type === 'Numeracy') {
+          if (field === 'Achieved') numeracyAchieved += value;
+          else if (field === 'Merit') numeracyMerit += value;
+          else if (field === 'Excellence') numeracyExcellence += value;
+        }
+      });
+    });
+
+    let requiredCreditsForUE = 0;
+    let requiredLiteracyCredits = 0;
+    let requiredNumeracyCredits = 0;
+    let requiredCreditsForEndorsement = 0;
+    let message = '';
+
+    if (level == '1') {
+      requiredCreditsForUE = 10;
+      requiredLiteracyCredits = 8;
+      requiredNumeracyCredits = 10;
+      requiredCreditsForEndorsement = 50;
+    } else if (level == '2') {
+      requiredCreditsForUE = 10;
+      requiredLiteracyCredits = 10;
+      requiredNumeracyCredits = 10;
+      requiredCreditsForEndorsement = 50;
+    } else if (level == '3') {
+      requiredCreditsForUE = 14;
+      requiredLiteracyCredits = 10;
+      requiredNumeracyCredits = 10;
+      requiredCreditsForEndorsement = 50;
+    }
+
+    const totalCredits = achievedCredits + meritCredits + excellenceCredits;
+    const totalLiteracyCredits = literacyAchieved + literacyMerit + literacyExcellence;
+    const totalNumeracyCredits = numeracyAchieved + numeracyMerit + numeracyExcellence;
+
+    if (totalCredits >= requiredCreditsForUE && totalLiteracyCredits >= requiredLiteracyCredits && totalNumeracyCredits >= requiredNumeracyCredits) {
+      message += `<p><strong>You have passed your level ${level} and met the credits required for University Entrance (UE).</strong></p>`;
+    } else {
+      message += `<p><strong>You have not yet met the credits required for University Entrance (UE) at Level ${level}.</strong></p>`;
+    }
+
+    if (totalCredits >= requiredCreditsForEndorsement) {
+      message += `<p><strong>You are eligible for Year Endorsements (Merit/Excellence) at Level ${level}.</strong></p>`;
+    } else {
+      message += `<p><strong>You do not yet meet the credits required for Year Endorsements (Merit/Excellence) at Level ${level}.</strong></p>`;
+    }
+
+    document.getElementById('results').innerHTML = message;
+  }
+
+  // Trigger initial change to populate the fields based on default selection
+  document.getElementById('level').dispatchEvent(new Event('change'));
+</script>
+
+</body>
+</html>

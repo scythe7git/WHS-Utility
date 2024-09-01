@@ -38,7 +38,7 @@ body {
   margin-top: 50px;
 }
 
-@media only screen and (max-width: 768px) { /*got chat gpt to make it smaller on mobile*/
+@media only screen and (max-width: 768px) {
   .info {
     font-size: 18px;
   }
@@ -71,7 +71,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 20px;
-  margin-bottom: 20px; /* Added more space */
+  margin-bottom: 20px;
   text-decoration: none;
 }
 
@@ -98,14 +98,86 @@ body {
 
 .home-title {
   font-size: 48px;
-  color: #333; /* Match this with the countdown title color */
-  margin-bottom: 20px; /* Adjust spacing as needed */
-  font-weight: normal; /* Ensure the text is not bold */
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: normal;
 }
 
-/* Adjust this if needed to match countdown styles */
-.info {
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.home-button {
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
+}
+
+.input-section, .credit-list {
+  margin-bottom: 20px;
+}
+
+.input-section input, .input-section select {
+  font-size: 16px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.credit-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.credit-list li {
+  margin-bottom: 5px;
+}
+
+.calculator-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.calculator-container h1 {
   font-size: 24px;
-  color: #555; /* This should be consistent with the countdown page */
-  margin-top: 50px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.calculator-container label {
+  font-size: 18px;
+  color: #555;
+  margin-right: 10px;
+}
+
+.calculator-container input, .calculator-container select {
+  font-size: 16px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.results {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
 }
