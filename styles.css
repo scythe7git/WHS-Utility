@@ -23,6 +23,15 @@ body {
   margin-bottom: 20px;
 }
 
+.countdown-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .current-period, .device-timezone, .info, .results {
   color: #555;
 }
@@ -125,7 +134,7 @@ body {
   flex-wrap: wrap;
 }
 
-.calculator-container {
+.calculator-container, .resource-container {
   background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
@@ -133,34 +142,34 @@ body {
   margin-bottom: 20px;
 }
 
-.calculator-container h1, .input-section h2 {
+.calculator-container h1, .input-section h2, .resource-container h1 {
   font-size: 24px;
   color: #333;
   margin-bottom: 20px;
 }
 
-.calculator-container label {
+.calculator-container label, .resource-container label {
   font-size: 18px;
   color: #555;
   margin-right: 10px;
 }
 
-.input-section, .credit-list {
+.input-section, .credit-list, .resource-list {
   margin-bottom: 20px;
 }
 
-.input-section input, .input-section select {
+.input-section input, .input-section select, .resource-container a {
   font-size: 16px;
   padding: 5px;
   margin: 5px;
 }
 
-.credit-list ul {
+.credit-list ul, .resource-list ul {
   list-style-type: none;
   padding: 0;
 }
 
-.credit-list li {
+.credit-list li, .resource-list li {
   margin-bottom: 5px;
 }
 
@@ -171,6 +180,117 @@ body {
 }
 
 img {
-  max-width: 100%;
+  max-width: 20%; /* Adjusted image size */
   height: auto;
+}
+
+/* New styles for the Resources page */
+.resource-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resource-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.resource-container a {
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.resource-container a:hover {
+  background-color: #0056b3;
+}
+
+.exam-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  text-align: center; /* Center text */
+}
+
+.exam-section {
+  margin-bottom: 20px;
+}
+
+.exam-section h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.exam-section p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.exam-image {
+  max-width: 15%; /* Adjusted image size */
+  height: auto;
+  margin: 0 auto; /* Center image */
+  display: block; /* Centering block-level elements */
+}
+
+/* Style for the overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Style for the enlarged image */
+.overlay img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+/* Styles for the image caption */
+.image-wrapper {
+  text-align: center;
+}
+
+.image-caption {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.home-button {
+  background-color: #007bff;
+  margin-top: 20px; /* Adjust this if needed */
+  margin-bottom: 40px; /* Increase this value to add more space */
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
