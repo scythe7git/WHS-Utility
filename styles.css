@@ -7,10 +7,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  box-sizing: border-box;
 }
 
 .container {
   text-align: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 #countdown {
@@ -19,22 +23,23 @@ body {
   margin-bottom: 20px;
 }
 
+.current-period, .device-timezone, .info, .results {
+  color: #555;
+}
+
 .current-period {
   font-size: 18px;
-  color: #555;
   margin-top: 10px;
 }
 
 .device-timezone {
   font-size: 16px;
-  color: #555;
   margin-top: 30px;
   font-weight: bold;
 }
 
 .info {
   font-size: 24px;
-  color: #555;
   margin-top: 50px;
 }
 
@@ -42,19 +47,45 @@ body {
   .info {
     font-size: 18px;
   }
+
+  .home-title {
+    font-size: 36px;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+
+  .site-button, .home-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .input-section input, .input-section select {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
-.add-extension-button {
+.add-extension-button, .download-button, .site-button, .home-button {
   font-size: 16px;
   color: #fff;
-  background-color: #b3b3b3;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 20px;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.add-extension-button {
+  background-color: #b3b3b3;
 }
 
 .add-extension-button:hover {
@@ -62,37 +93,21 @@ body {
 }
 
 .download-button {
-  font-size: 16px;
-  color: #fff;
   background-color: #007bff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
   margin-top: 20px;
   margin-bottom: 20px;
-  text-decoration: none;
 }
 
 .download-button:hover {
   background-color: #0056b3;
 }
 
-.site-button {
-  font-size: 16px;
-  color: #fff;
+.site-button, .home-button {
   background-color: #007bff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
   margin-top: 10px;
-  text-decoration: none;
 }
 
-.site-button:hover {
+.site-button:hover, .home-button:hover {
   background-color: #0056b3;
 }
 
@@ -107,28 +122,27 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.home-button {
-  font-size: 16px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  line-height: 1;
-  box-sizing: border-box;
+.calculator-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.home-button:hover {
-  background-color: #0056b3;
+.calculator-container h1, .input-section h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.calculator-container label {
+  font-size: 18px;
+  color: #555;
+  margin-right: 10px;
 }
 
 .input-section, .credit-list {
@@ -150,34 +164,13 @@ body {
   margin-bottom: 5px;
 }
 
-.calculator-container {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.calculator-container h1 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.calculator-container label {
-  font-size: 18px;
-  color: #555;
-  margin-right: 10px;
-}
-
-.calculator-container input, .calculator-container select {
-  font-size: 16px;
-  padding: 5px;
-  margin: 5px;
-}
-
 .results {
   margin-top: 20px;
   font-size: 18px;
   color: #555;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
