@@ -97,6 +97,7 @@
       right: 5px;
     }
 
+    /* Home button */
     .home-button {
       background-color: #007bff;
       margin-top: 20px; /* Adjust this if needed */
@@ -113,6 +114,66 @@
       align-items: center;
       justify-content: center;
       line-height: 1;
+    }
+
+    /* ---- MOBILE RESPONSIVE STYLES ---- */
+    @media (max-width: 768px) {
+      /* Allow scrolling if the table is too wide */
+      .container {
+        overflow-x: auto;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap; /* Prevents text wrapping in table cells */
+      }
+
+      thead th,
+      tbody td {
+        min-width: 100px; /* Prevents columns from becoming too small */
+      }
+
+      /* Reduce period height and text size */
+      .period {
+        height: 60px; /* Reduce height */
+        font-size: 12px;
+        padding-top: 20px; /* Adjust for better alignment */
+      }
+
+      .period .time,
+      .period .room {
+        font-size: 10px;
+      }
+
+      /* Home button should be centered and smaller */
+      .home-button {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        font-size: 14px;
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .period {
+        height: 50px;
+        font-size: 10px;
+        padding-top: 15px;
+      }
+
+      .period .time,
+      .period .room {
+        font-size: 9px;
+      }
+
+      .home-button {
+        width: 100%;
+        font-size: 12px;
+        padding: 8px 12px;
+      }
     }
   </style>
   <link rel="stylesheet" href="styles.css">
