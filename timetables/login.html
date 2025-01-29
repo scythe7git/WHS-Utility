@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Login</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Timetable Login</h1>
+            <div class="resource-container">
+            <div class="login-container">
+                <form id="loginForm">
+                    <div class="input-section">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="input-section">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button type="submit" class="site-button">Submit</button>
+                    </div>
+                    
+                    <div class="alert" id="errorMessage"></div>
+                </form>
+            </div>
+        </div>
+        <a href="../index.html" class="home-button">Home</a>
+    </div>
+
+    <script>
+        const validCredentials = {
+            "joa": "Sayulita2022",
+            "test": "test"
+        };
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("errorMessage");
+
+            if (validCredentials[name] === password) {
+                // Redirect to the correct timetable page
+                window.location.href = `tables/${name}.html`;
+            } else {
+                errorMessage.textContent = "Invalid name or password."; // Display error message
+                errorMessage.style.color = "#ff0000"; // Red color for error
+            }
+        });
+    </script>
+</body>
+</html>
