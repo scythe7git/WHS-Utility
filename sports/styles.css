@@ -1,0 +1,74 @@
+/* Basic styles for the form and notices */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background-color: #ffffff; /* Background color */
+  color: #212529; /* Text color */
+}
+
+h1, h2 {
+  color: #212529; /* Text color for headers */
+}
+
+form {
+  margin-bottom: 20px;
+  background-color: #fff; /* Form background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: bold;
+}
+
+input, select, textarea { /* Add textarea to apply the same styles */
+  padding: 8px;
+  margin: 8px 0;
+  width: 100%;
+  max-width: 400px;
+  background-color: #e9ecef; /* Background color for input fields */
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #28a745; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4cae4c; /* Hover state for buttons */
+}
+
+.notice {
+  background-color: #E9ECEF; /* Secondary background for notices */
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: darkred; /* Hover state for delete button */
+}
+
+#login-section {
+  margin-bottom: 20px;
+}
+
+#login-message {
+  color: red; /* Color for login message */
+  font-weight: bold;
+}
